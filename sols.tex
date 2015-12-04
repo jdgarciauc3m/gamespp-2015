@@ -1,0 +1,78 @@
+\section{Primeras soluciones}
+
+\begin{frame}[t]{Aritmética de coma fija}
+\begin{itemize}
+  \item Propuestas:
+    \begin{itemize}
+      \item P0037R0: Fixed point real numbers.
+      \item N3352: C++ Binary Fixed-Point Arithmetic.
+    \end{itemize}
+  \vfill
+  \item Razones:
+    \begin{itemize}
+      \item Plataformas con coma flotante lenta.
+      \item Necesidad de precisión uniforme (IEEE 754 tiene precisión variable).
+    \end{itemize}
+  \vfill
+  \item Se propone:
+    \begin{itemize}
+      \item \cppid{std::fixed\_point<Rep,Exp>}
+      \item \cppid{std::make\_fixed<IntBits,FracBits>}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Búfer circulares}
+\begin{itemize}
+  \item Propuesta:
+    \begin{itemize}
+      \item P0059R0: Add rings to the Standard Library.
+      \item Un búfer FIFO contiguo en memoria.
+    \end{itemize}
+  \vfill
+  \item Posibles usos:
+    \begin{itemize}
+      \item Paso de muestras de audio a DAC.
+      \item Cola de paquetes de red pendientes de envío.
+      \item Búfer con \emph{frames} de video.
+    \end{itemize}
+  \vfill
+  \item Se propone:
+    \begin{itemize}
+      \item \cppid{std::fixed\_ring<T,N>}
+      \item \cppid{std::dynamic\_ring<T>}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Soporte a concurrencia}
+\begin{itemize}
+  \item Una versión \emph{thread-safe} de la STL.
+    \begin{itemize}
+      \item En estudio.
+    \end{itemize}
+  \item Control del tamaño de pila de un \cppid{thread}.
+    \begin{itemize}
+      \item Necesidad de controlar el tamaño de pila de hilos creados.
+      \item Necesario establecer \alert{antes} de crear hilo $\rightarrow$ \cppid{native\_handle()} no sirve.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Otras cosas}
+\begin{itemize}
+  \item Mejores herramientas para implementar contenedores de alto rendimiento.
+    \begin{itemize}
+      \item Algoritmos sobre almacenamiento \emph{raw}.
+      \item Movimiento y construcción sobre memoria no iniciada.
+      \item Algoritmos de eliminación no estable.
+    \end{itemize}
+  \item Contenederos asociativos \emph{``planos''}.
+  \item Poder identificar si una instancia tiene una función en su \emph{v-table}.
+  \item Coste de las excepciones.
+  \item Vistas atómicas.
+  \item Más \cppkey{noexcept}.
+  \item Mejor SIMD.
+  \item \ldots
+\end{itemize}
+\end{frame}

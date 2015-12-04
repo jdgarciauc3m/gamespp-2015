@@ -1,0 +1,80 @@
+\section{Algunos problemas}
+
+\begin{frame}[t]{Memoria}
+\begin{itemize}
+  \item Memoria disponible.
+    \begin{itemize}
+      \item Presupuesto de memoria fijo (entre centenares de MB y pocos GB).
+      \item Sin espacio de \emph{swap} ni espacio temporal de disco.
+      \item \alert{¡Actualizar el hardware no es una opción!}
+    \end{itemize}
+  \vfill\pause
+  \item Inconsistencias en asignación de memoria.
+    \begin{itemize}
+      \item Diferencias en implementaciones de contenedores.
+        \begin{itemize}
+          \item Tasa de crecimiento de vector, tamaño inicial, optimización del objeto pequeño, \ldots
+        \end{itemize}
+      \item ¿A partir de qué tamaño se requiere asignación en \cppid{std::function}?
+      \item Consecuencia: Problema de \alert{portabilidad de rendimiento}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Tiempo de cómputo}
+\begin{itemize}
+  \item Coste de iteradores en versiones de \emph{debug}.
+    \begin{itemize}
+      \item Variable entre implementaciones.
+      \item Diferentes formas de desactivar características no deseadas.
+    \end{itemize}
+  \vfill\pause
+  \item \cppid{dynamic\_cast} normalmente desactivado.
+    \begin{itemize}
+      \item Sistemas de reflexión \emph{ad-hoc}.
+    \end{itemize}
+  \vfill\pause
+  \item Algoritmos $O(log n)$ con rendimiento variable.
+    \begin{itemize}
+      \item \cppid{boost::flat\_map} frente a \cppid{std::map}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rendimiento}
+\begin{itemize}
+  \item RTTI.
+    \begin{itemize}
+      \item Overhead de datos generados.
+      \item \cppkey{-fno-rtti}.
+      \item Uso de \cppkey{dynamic\_cast} $\rightarrow$ \alert{comportamiento no definido}.
+    \end{itemize}
+  \vfill\pause
+  \item Excepciones.
+    \begin{itemize}
+      \item Restringe optimizaciones (\emph{stack undwinding}).
+      \item \cppkey{-fno-exceptions}.
+      \item Uso de \cppkey{try} o \cppkey{throw}  $\rightarrow$ \alert{comportamiento no definido}.
+      \item Hace muchas bibliotecas inutilizables.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Más rendimiento}
+\begin{itemize}
+  \item Hardware con predicción de salto inexistente (o malo).
+  \item El impacto de la caché sobre el rendimiento se hace más visible.
+  \item El rendimiento es relevante incluso en depuración.
+  \item Estructuras de datos.
+    \begin{itemize}
+      \item Listas enlazadas intrusivas.
+      \item Tablas \emph{hash} que sean \emph{cache friendly}.
+      \item \ldots
+    \end{itemize}
+  \item El tiempo importa.
+    \begin{itemize}
+      \item Tiempos de compilación largos.
+      \item Tiempos de carga largos.
+    \end{itemize}
+\end{itemize}
+\end{frame}
